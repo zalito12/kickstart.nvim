@@ -167,7 +167,7 @@ vim.keymap.set('i', 'kj', '<ESC>', { silent = true })
 vim.keymap.set('n', 'kj', '<ESC>', { silent = true })
 vim.keymap.set('n', '<leader>n', ':bn<cr>')
 vim.keymap.set('n', '<leader>p', ':bp<cr>')
-vim.keymap.set('n', '<leader>d', ':bd<cr>')
+vim.keymap.set('n', '<leader>x', ':bd<cr>')
 vim.keymap.set('n', '<M-n>', ':cnext<cr>')
 vim.keymap.set('n', '<M-p>', ':cprev<cr>')
 
@@ -219,6 +219,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
+})
+
+-- Command to replace windows end of lines
+vim.api.nvim_create_user_command('W2U', 'silent! %s/\r$//g', {})
+vim.api.nvim_create_autocmd('BufWritePre', {
+  desc = 'Remove Windows line endings',
+  command = 'W2U',
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
