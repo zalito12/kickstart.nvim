@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -168,6 +168,8 @@ vim.keymap.set('n', 'kj', '<ESC>', { silent = true })
 vim.keymap.set('n', '<leader>n', ':bn<cr>')
 vim.keymap.set('n', '<leader>p', ':bp<cr>')
 vim.keymap.set('n', '<leader>d', ':bd<cr>')
+vim.keymap.set('n', '<M-n>', ':cnext<cr>')
+vim.keymap.set('n', '<M-p>', ':cprev<cr>')
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -771,6 +773,7 @@ require('lazy').setup({
       },
     },
     opts = {
+      log_level = vim.log.levels.DEBUG,
       notify_on_error = false,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
@@ -927,8 +930,11 @@ require('lazy').setup({
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
+        transparent = true,
         styles = {
           comments = { italic = false }, -- Disable italics in comments
+          sidebars = 'transparent',
+          floats = 'transparent',
         },
       }
 
@@ -985,7 +991,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'astro', 'typescript', 'php' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
