@@ -161,15 +161,33 @@ vim.opt.scrolloff = 10
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
+-- tab width, etc
+-- vim.opt_global.shiftwidth = 2
+-- vim.opt_global.tabstop = 2
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 vim.keymap.set('i', 'kj', '<ESC>', { silent = true })
 vim.keymap.set('n', 'kj', '<ESC>', { silent = true })
 vim.keymap.set('n', '<leader>n', ':bn<cr>')
 vim.keymap.set('n', '<leader>p', ':bp<cr>')
-vim.keymap.set('n', '<leader>x', ':bd<cr>')
+vim.keymap.set('n', '<leader>x', ':bp<bar>bd#<cr>')
 vim.keymap.set('n', '<M-n>', ':cnext<cr>')
 vim.keymap.set('n', '<M-p>', ':cprev<cr>')
+
+-- Append inside keymaps
+vim.keymap.set('n', "<leader>ai'", 'ci\'<C-r>"')
+vim.keymap.set('n', '<leader>ai"', 'ci"<C-r>"')
+vim.keymap.set('n', '<leader>ai`', 'ci`<C-r>"')
+vim.keymap.set('n', '<leader>ai(', 'ci(<C-r>"')
+vim.keymap.set('n', '<leader>ai[', 'ci[<C-r>"')
+vim.keymap.set('n', '<leader>ai{', 'ci{<C-r>"')
+vim.keymap.set('n', '<leader>ai<', 'ci<<C-r>"')
+vim.keymap.set('n', '<leader>ai)', 'ci)<C-r>"')
+vim.keymap.set('n', '<leader>ai]', 'ci]<C-r>"')
+vim.keymap.set('n', '<leader>ai}', 'ci}<C-r>"')
+vim.keymap.set('n', '<leader>ai>', 'ci><C-r>"')
+vim.keymap.set('n', '<leader>ait', 'cit<C-r>"')
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -222,11 +240,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Command to replace windows end of lines
-vim.api.nvim_create_user_command('W2U', 'silent! %s/\r$//g', {})
-vim.api.nvim_create_autocmd('BufWritePre', {
-  desc = 'Remove Windows line endings',
-  command = 'W2U',
-})
+vim.api.nvim_create_user_command('W2u', 'silent! %s/\r$//g', {})
+-- vim.api.nvim_create_autocmd('BufWritePre', {
+--   desc = 'Remove Windows line endings',
+--   command = 'W2u',
+-- })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -479,7 +497,7 @@ require('lazy').setup({
 
       -- Find with hidden files
       vim.keymap.set('n', '<leader>sa', function()
-        builtin.find_files { no_ignore = true }
+        builtin.find_files { no_ignore = true, hidden = true }
       end, { desc = 'Search [A]ll files' })
 
       -- -- Grep with hidden files
@@ -791,7 +809,7 @@ require('lazy').setup({
           return nil
         else
           return {
-            timeout_ms = 500,
+            timeout_ms = 2000,
             lsp_format = 'fallback',
           }
         end
@@ -805,6 +823,7 @@ require('lazy').setup({
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         astro = { 'prettierd', 'prettier', stop_after_first = true },
+        blade = { 'blade-formatter' },
       },
     },
   },
@@ -998,7 +1017,22 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'astro', 'typescript', 'php' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'astro',
+        'typescript',
+        'php',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
