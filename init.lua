@@ -169,11 +169,14 @@ vim.opt.confirm = true
 --  See `:help vim.keymap.set()`
 vim.keymap.set('i', 'kj', '<ESC>', { silent = true })
 vim.keymap.set('n', 'kj', '<ESC>', { silent = true })
-vim.keymap.set('n', '<leader>n', ':bn<cr>')
-vim.keymap.set('n', '<leader>p', ':bp<cr>')
-vim.keymap.set('n', '<leader>x', ':bp<bar>bd#<cr>')
-vim.keymap.set('n', '<M-n>', ':cnext<cr>')
-vim.keymap.set('n', '<M-p>', ':cprev<cr>')
+vim.keymap.set('n', '<leader>n', ':bn<cr>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<leader>p', ':bp<cr>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>x', ':bp<bar>bd#<cr>', { desc = 'Close buffer' })
+vim.keymap.set('n', '<M-n>', ':cnext<cr>', { desc = 'Next diagnostic' })
+vim.keymap.set('n', '<M-n>', ':cnext<cr>', { desc = 'Previous diagnostic' })
+vim.keymap.set('n', '<leader>to', ':Neotree<cr>', { desc = 'Open Neotree' })
+vim.keymap.set('n', '<leader>tr', ':Neotree reveal<cr>', { desc = 'Neotree reveal file' })
+vim.keymap.set('n', '<leader>tq', ':Neotree close<cr>', { desc = 'Neotree close' })
 
 -- Append inside keymaps
 vim.keymap.set('n', "<leader>ai'", 'ci\'<C-r>"')
