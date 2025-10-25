@@ -15,8 +15,12 @@ return {
   },
   opts = {
     commands = {
+      open_close = function(state)
+        state.commands['open'](state)
+        vim.cmd 'Neotree close'
+      end,
       -- Create open command for visual mode (currently missing)
-      open_visual = function(state, selected_nodes)
+      open_close_visual = function(state, selected_nodes)
         local utils = require 'neo-tree.utils'
         if not selected_nodes or #selected_nodes == 0 then
           vim.notify('No files selected', vim.log.levels.WARN, { title = 'Neo-tree' })
@@ -34,23 +38,21 @@ return {
         end
         vim.cmd 'Neotree close'
       end,
+      open_select_next = function(state)
+        state.commands['open'](state)
+        vim.cmd 'Neotree reveal'
+        vim.defer_fn(function()
+          if vim.bo.filetype == 'neo-tree' then
+            vim.fn.feedkeys 'j'
+          end
+        end, 150)
+      end,
     },
     filesystem = {
       window = {
         mappings = {
-          ['<cr>'] = function(state)
-            state.commands['open'](state)
-            vim.cmd 'Neotree close'
-          end,
-          ['<tab>'] = function(state)
-            state.commands['open'](state)
-            vim.cmd 'Neotree reveal'
-            vim.defer_fn(function()
-              if vim.bo.filetype == 'neo-tree' then
-                vim.fn.feedkeys 'j'
-              end
-            end, 150)
-          end,
+          ['<cr>'] = { 'open_close', config = { desc = 'Open file(s)' } },
+          ['<tab>'] = { 'open_select_next', config = { desc = 'Open and select next node' } },
         },
       },
       filtered_items = {
