@@ -20,6 +20,7 @@ return {
             'svelte',
             'typescriptreact',
             'vue',
+            'twig',
           },
         },
       },

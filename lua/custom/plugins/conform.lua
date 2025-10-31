@@ -42,6 +42,7 @@ return { -- Autoformat
         astro = { 'prettierd', 'prettier', stop_after_first = true },
         php = { 'pint' },
         blade = { 'blade-formatter', 'rusty-wind' },
+        twig = { 'twig-cs-fixer', 'prettierd', 'prettier' },
       },
       -- https://github.com/kauffinger/lazyvim/blob/main/lua/plugins/conform.lua
       formatters = {
