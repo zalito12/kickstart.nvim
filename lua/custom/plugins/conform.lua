@@ -40,6 +40,7 @@ return { -- Autoformat
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         astro = { 'prettierd', 'prettier', stop_after_first = true },
+        css = { 'prettierd', 'prettier', stop_after_first = true },
         php = { 'pint' },
         blade = { 'blade-formatter', 'rusty-wind' },
         twig = { 'twig-cs-fixer', 'prettierd', 'prettier' },
