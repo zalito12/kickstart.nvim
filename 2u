@@ -1,0 +1,18 @@
+;; extends
+
+; Buscamos la directiva que contiene el tag 'js'
+; (statement_directive
+;   (tag_statement
+;     (tag) @_tag_name (#eq? @_tag_name "js"))
+;   (content) @injection.content
+;   (#set! injection.language "javascript")
+;   (#set! injection.combined))
+; (statement_directive
+;   (tag_statement) @_start (#match? @_start "js")
+;   (_) @injection.content
+;   (#set! injection.language "javascript")
+;   (#set! injection.combined))
+((statement_directive) @injection.content
+  (#lua-match? @injection.content "{%%s*js%s*%%}")
+  (#set! injection.language "javascript")
+  (#set! injection.offset-encoding "utf-8"))
